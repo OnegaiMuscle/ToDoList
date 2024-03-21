@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Javascript Web Application</title>
+  <meta name="description" content="Free To-Do List Application in your Web Browser coded in Vanilla Javascript.">
+  <link rel="canonical" href="https://onegaimuscle.github.io/ToDoList/">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="todo-container">
+    <h2>To-Do List</h2>
+    <form onsubmit=addTask(event)>
+      <input type="text" name="newTask" placeholder="Add your task" maxlength="32">
+      <input type="submit" value="Add">
+    </form>
+    <ul></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  font-family: Helvetica, sans-serif;
+}
+
+.todo-container {
+  max-width: 480px;
+  min-width: 240px;
+  width: 95%;
+  background: #fff;
+  padding: 1rem;
+  margin: 0.75rem auto;
+  border-radius: 1.5rem;
+}
+
+.todo-container h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+form {
+  border: 0.125rem solid #ff8000;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  border-radius: 1.5rem;
+}
+
+input[type="text"] {
+  flex: 1;
+  position: relative;
+}
+
+input[type="submit"] {
+  color: #fff;
+  background-color: #ff8000;
+  cursor: pointer;
+  position: absolute;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  flex: 1;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + p {
+  flex: 6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+input[type="checkbox"]:checked + p {
+  text-decoration:line-through;
+}
+
+.delete {
+  flex: 1;
+  padding-bottom: 0.25rem;
+  text-align: center;
+  cursor: pointer;
+}
