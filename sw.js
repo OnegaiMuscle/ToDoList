@@ -24,8 +24,21 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        const fetchRequest = event.request.clone();
+        return fetch(fetchRequest).then(response => {
+          if(!response || response.status !== 200 || response.type !== 'basic') {
+            return response;}
+            var responseToCache = response.clone();
+
+            caches.open(cacheName
+            )
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+          });
+return response
       }
-    )
+
+  )
+})
   )
 })
