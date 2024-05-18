@@ -1,10 +1,9 @@
 const cacheName = "TodoList"
 const contentToCache = [
-  "./",
-	"./index.html",
-	"./index.css",
-	"./app.js",
-	"./sw.js",
+	"index.html",
+	"index.css",
+	"app.js",
+	"sw.js",
 ]
 
 self.addEventListener("install", (e) => {
