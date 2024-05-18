@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(function(registration) {
+      console.log('Service Worker enregistré avec succès:', registration);
+    })
+    .catch(function(error) {
+      console.log('Échec enregistrement du Service Worker:', error)
+    });
+}
+
 function addTask(e) {
   e.preventDefault()
   const form = e.target
