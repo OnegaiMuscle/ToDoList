@@ -2,8 +2,8 @@ const cacheName = "ToDoList"
 const contentToCache = [
   "./",
 	"./index.html",
-	"./index.css",
-	"./index.js",
+	"./style.css",
+	"./app.js",
 	"./sw.js",
 ]
 
