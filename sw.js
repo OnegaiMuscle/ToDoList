@@ -35,7 +35,7 @@ self.addEventListener('fetch', event => {
               .then(cache => {
                 cache.put(event.request, responseToCache);
           });
-return response
+        return response
       }
   )
 })
