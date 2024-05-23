@@ -22,6 +22,10 @@ function addTask(e) {
       <span class="delete" onclick="deleteTask(this)">&#x274E</span>`;
     li.children[1].textContent=taskText
     ul.appendChild(li)
+    navigator.serviceWorker.controller.postMessage({
+      action: 'update-page',
+      url: window.location.href
+  })
   }
 }
 
