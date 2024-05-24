@@ -1,10 +1,10 @@
 const cacheName = "ToDoList"
 const contentToCache = [
-  "./",
-	"./index.html",
-	"./style.css",
-	"./app.js",
-	"./sw.js",
+  "/",
+	"/index.html",
+	"/style.css",
+	"/app.js",
+	"/sw.js",
 ]
 
 self.addEventListener("install", (e) => {
@@ -16,6 +16,7 @@ self.addEventListener("install", (e) => {
 		})()
 	);
 });
+
 
 self.addEventListener("fetch", function (event) {
 	event.respondWith(fetch(event.request).then((res) => {
@@ -30,9 +31,6 @@ self.addEventListener("fetch", function (event) {
 	);
 });
 
-self.addEventListener("onupdatefound", function () {
-  registration.update();
-})
 
 function fetchAndCachePage(url) {
   fetch(url)
