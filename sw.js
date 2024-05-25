@@ -17,7 +17,6 @@ self.addEventListener("install", (e) => {
 	);
 });
 
-
 self.addEventListener("fetch", function (event) {
 	event.respondWith(fetch(event.request).then((res) => {
 		let response = res.clone();
@@ -30,7 +29,6 @@ self.addEventListener("fetch", function (event) {
 	})
 	);
 });
-
 
 function fetchAndCachePage(url) {
   fetch(url)
