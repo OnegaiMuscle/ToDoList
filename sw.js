@@ -38,7 +38,7 @@ function fetchAndCachePage(url) {
           const newResponse = new Response(body, {
               headers: { 'Content-Type': 'text/html' }
           });
-          // Ouvrez le cache et mettez à jour la page
+          
           caches.open(cacheName)
               .then(cache => {
                   cache.put(url, newResponse);
@@ -48,7 +48,7 @@ function fetchAndCachePage(url) {
 
 self.addEventListener('message', event => {
   if (event.data && event.data.action === 'update-page') {
-      // Récupérez la nouvelle version de la page et mettez à jour le cache
+
       fetchAndCachePage(event.data.url);
   }
 });
