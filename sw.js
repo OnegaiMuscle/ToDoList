@@ -38,7 +38,6 @@ function fetchAndCachePage(url) {
           const newResponse = new Response(body, {
               headers: { 'Content-Type': 'text/html' }
           });
-          
           caches.open(cacheName)
               .then(cache => {
                   cache.put(url, newResponse);
