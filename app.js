@@ -8,7 +8,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-
 function addTask(e) {
   e.preventDefault()
   const form = e.target
