@@ -47,8 +47,6 @@ function fetchAndCachePage(url) {
 
 self.addEventListener('message', event => {
   if (event.data && event.data.action === 'update-page') {
-
       fetchAndCachePage(event.data.url);
   }
 });
-
