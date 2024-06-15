@@ -51,7 +51,3 @@ self.addEventListener('message', event => {
   }
 });
 
-
-//
-//
-//
