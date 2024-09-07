@@ -1,34 +1,36 @@
-const cacheName = "ToDoList";
-const contentToCache = [
-  "./",
-	"./index.html",
-	"./style.css",
-	"./app.js",
-	"./sw.js",
+const cacheName = 'ToDoList';
+const urlsToCache = [
+  './',
+	'./index.html',
+	'./style.css',
+	'./app.js',
+	'./sw.js',
 ];
 
-self.addEventListener('install', function(event) {
-  // Effectuer l'installation et ouvrir le cache
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Cache ouvert');
-        return cache.addAll(urlsToCache);
-      })
-  );
+const addContentToCache = async (content) => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(content);
+};
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(addContentToCache(urlsToCache));
 });
 
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Ressource trouvée dans le cache
-        if (response) {
-          return response;
-        }
-        // Ressource non trouvée dans le cache, la récupérer du réseau
-        return fetch(event.request);
-      }
-    )
-  );
+const cacheFirst = async (request) => {
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
+  };
+  const responseFromNetwork = await fetch(request);
+  if (!responseFromNetwork.ok || responseFromNetwork.type !== 'basic') {
+    return responseFromNetwork;
+  };
+  const responseToCache = responseFromNetwork.clone();
+  const cache = await caches.open(cacheName);
+  await cache.put(request, responseToCache);
+  return responseFromNetwork;
+};
+
+self.addEventListener("fetch", (e) => {
+  e.respondWith(cacheFirst(e.request));
 });
