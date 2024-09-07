@@ -1,34 +1,24 @@
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(function(registration) {
-      console.log('Service Worker enregistré avec succès:', registration);
-    })
-    .catch(function(error) {
-      console.log('Échec enregistrement du Service Worker:', error)
-    });
-}
+  navigator.serviceWorker.register('./sw.js');
+};
 
 function addTask(e) {
-  e.preventDefault()
-  const form = e.target
-  const taskText = form.newTask.value.trim()
-  const ul = form.nextElementSibling
-  form.reset()
+  e.preventDefault();
+  const form = e.target;
+  const taskText = form.newTask.value.trim();
+  const ul = form.nextElementSibling;
+  form.reset();
   if (taskText) {
-    const li = document.createElement('li')
+    const li = document.createElement('li');
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
       <span class="delete" onclick="deleteTask(this)">&#x274E</span>`;
-    li.children[1].textContent=taskText
-    ul.appendChild(li)
-    navigator.serviceWorker.controller.postMessage({
-      action: 'update-page',
-      url: window.location.href
-  })
-  }
-}
+    li.children[1].textContent = taskText;
+    ul.appendChild(li);
+  };
+};
 
 function deleteTask(e) {
-  e.parentElement.remove()
-}
+  e.parentElement.remove();
+};

@@ -16,7 +16,7 @@ body {
   background: #fff;
   padding: 1rem;
   margin: 0.75rem auto;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
 }
 
 .todo-container h2 {
@@ -76,7 +76,8 @@ input[type="checkbox"] + p {
 }
 
 input[type="checkbox"]:checked + p {
-  text-decoration:line-through;
+  text-decoration: line-through;
+  text-decoration-thickness: 0.25rem;
 }
 
 .delete {
