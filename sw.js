@@ -1,5 +1,5 @@
 const cacheName = 'ToDoList';
-const urlsToCache = [
+const filesToCache = [
   './',
 	'./index.html',
 	'./style.css',
@@ -13,7 +13,7 @@ const addContentToCache = async (content) => {
 };
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(addContentToCache(urlsToCache));
+  e.waitUntil(addContentToCache(filesToCache));
 });
 
 const cacheFirst = async (request) => {
