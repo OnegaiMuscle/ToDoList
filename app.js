@@ -22,3 +22,17 @@ function addTask(e) {
 function deleteTask(e) {
   e.parentElement.remove();
 };
+
+//Create (Set item)
+//localStorage.setItem('key',JSON.stringify({name: 'Task 1', done:false}));
+
+//Read (Get item)
+//let task = JSON.parse(localStorage.getItem('key'));
+//console.log(task)
+
+//Update (Set item)
+//let updatedTask = {name: 'Task 1', done; true};
+//localStorage.setItem('key', JSON.stringify(updatedTask))
+
+//Delete (Remove item)
+//localStorage.removeItem('key')

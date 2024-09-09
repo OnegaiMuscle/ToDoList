@@ -1,10 +1,10 @@
 const cacheName = 'ToDoList';
 const filesToCache = [
   './',
-	'./index.html',
-	'./style.css',
-	'./app.js',
-	'./sw.js',
+  './index.html',
+  './style.css',
+  './app.js',
+  './sw.js',
 ];
 
 const addContentToCache = async (content) => {
@@ -31,6 +31,6 @@ const cacheFirst = async (request) => {
   return responseFromNetwork;
 };
 
-self.addEventListener("fetch", (e) => {
+self.addEventListener('fetch', (e) => {
   e.respondWith(cacheFirst(e.request));
 });
