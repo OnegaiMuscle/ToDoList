@@ -1,6 +1,8 @@
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
+  navigator.serviceWorker.register('./cache.js');
 };
+
+const worker = new Worker('./localstorage.js')
 
 function addTask(e) {
   e.preventDefault();
@@ -36,3 +38,7 @@ function deleteTask(e) {
 
 //Delete (Remove item)
 //localStorage.removeItem('key')
+
+//function generateId() {
+//return Date.now().toString(36) + Math.random().toString(36).substr(2);
+//}
