@@ -2,7 +2,6 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./cache.js');
 };
 
-const worker = new Worker('./localstorage.js')
 
 function addTask(e) {
   e.preventDefault();
@@ -42,3 +41,13 @@ function deleteTask(e) {
 //function generateId() {
 //return Date.now().toString(36) + Math.random().toString(36).substr(2);
 //}
+
+//mutation observer
+
+window.onstorage = () => {
+  console.log("localstorage modifié");
+};
+
+function generateTaskId() {
+  return 'task_' + new Date().getTime()
+}
