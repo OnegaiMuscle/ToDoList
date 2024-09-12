@@ -1,27 +1,57 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./cache.js');
-};
+//if ('serviceWorker' in navigator) {
+//  navigator.serviceWorker.register('./sw.js');
+//};
 
 
-function addTask(e) {
-  e.preventDefault();
-  const form = e.target;
-  const taskText = form.newTask.value.trim();
-  const ul = form.nextElementSibling;
-  form.reset();
-  if (taskText) {
-    const li = document.createElement('li');
+ul = document.querySelector('ul')
+for (let i = 0; i < localStorage.length; i++) {
+  const key = localStorage.key(i);
+  let task={};
+  try {
+    task = JSON.parse(localStorage.getItem(key))
+    console.log(task)
+  } catch (error) {
+    console.error('Erreur de parsing JSON:', error);
+  };
+
+  if (task.text) {
+    ul.appendChild(displayTask(task))
+  };
+}
+
+
+
+function displayTask(obj) {
+  const li = document.createElement('li');
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
       <span class="delete" onclick="deleteTask(this)">&#x274E</span>`;
-    li.children[1].textContent = taskText;
-    ul.appendChild(li);
+    li.children[1].textContent = obj.text;
+    li.dataset.Id= obj.createdAt
+    return li
+}
+
+function addTask(e) {
+  e.preventDefault();
+  const form = e.target;
+  const task = {
+    text: form.newTask.value.trim(),
+    done: false,
+    createdAt: new Date().getTime(),
+  };
+  localStorage.setItem(task.createdAt, JSON.stringify(task))
+  form.reset();
+
+  if (task.text) {
+    ul.appendChild(displayTask(task))
   };
 };
 
 function deleteTask(e) {
-  e.parentElement.remove();
+  li = e.parentElement;
+  localStorage.removeItem(li.dataset.Id);
+  li.remove();
 };
 
 //Create (Set item)
@@ -44,10 +74,10 @@ function deleteTask(e) {
 
 //mutation observer
 
-window.onstorage = () => {
-  console.log("localstorage modifié");
-};
+//window.onstorage = () => {
+//  console.log("localstorage modifié");
+//};
 
-function generateTaskId() {
-  return 'task_' + new Date().getTime()
-}
+//function generateTaskId() {
+//  return 'task_' + new Date().getTime()
+//}
