@@ -25,7 +25,7 @@ function displayTask(obj) {
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
-      <span class="buttondelete">&#x274E</span>`;
+      <span class="delete">&#x274E</span>`;
     li.children[1].textContent = obj.text;
     li.dataset.Id = obj.createdAt
     return li
@@ -52,6 +52,12 @@ const addTask = (e) => {
   };
 };
 
+const updateTask = (e) => {
+ if (e.target.classList.contains('delete')) {
+  deleteTask(e)
+ }
+}
+
 const deleteTask = (e) => {
   const li = e.target.parentElement;
   const taskId = parseInt(li.dataset.Id)
@@ -64,7 +70,7 @@ const deleteTask = (e) => {
 
 
 domHelper.on$('#taskForm', 'submit', addTask);
-domHelper.on$('#taskList', 'click', deleteTask);
+domHelper.on$('#taskList', 'click', updateTask);
 
 //Create (Set item)
 //localStorage.setItem('key',JSON.stringify({name: 'Task 1', done:false}));

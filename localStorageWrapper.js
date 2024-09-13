@@ -7,23 +7,7 @@ const localStorageWrapper = {
   },
 
   getItem(key) {
-    const item = localStorage.getItem(this.prefix + key);
-    try {
-      return item ? JSON.parse(item) : null
-    } catch (error) {
-      console.error("Erreur de parsing pour la clé", key, error);
-      return null;
-    }
-  },
-
-  getAllItems() {
-    const items = {}
-    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefix))
-    console.log(keys)
-    keys.forEach(key => {
-      items[key] = localStorage.getItem(key);
-    });
-    return items
+    return JSON.parse(localStorage.getItem(this.prefix + key));
   },
 
   removeItem(key) {
