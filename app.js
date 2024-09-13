@@ -1,24 +1,23 @@
+import domHelper from "./domHelper.js";
+import localSW from "./localStorageWrapper.js";
+
 //if ('serviceWorker' in navigator) {
-//  navigator.serviceWorker.register('./sw.js');
+//  navigator.serviceWorker.register('./serviceworker.js');
 //};
 
 
-ul = document.querySelector('ul')
-for (let i = 0; i < localStorage.length; i++) {
-  const key = localStorage.key(i);
-  let task={};
-  try {
-    task = JSON.parse(localStorage.getItem(key))
-    console.log(task)
-  } catch (error) {
-    console.error('Erreur de parsing JSON:', error);
-  };
 
-  if (task.text) {
-    ul.appendChild(displayTask(task))
-  };
-}
+const ul = domHelper.$('ul');
+let Ids = localSW.getItem('Ids') || [];
 
+(function loadSavedTasks() {
+  Ids.forEach( x => {
+    const task = localSW.getItem(x);
+    if (task.text) {
+      ul.appendChild(displayTask(task));
+    };
+  });
+})();
 
 
 function displayTask(obj) {
@@ -26,33 +25,46 @@ function displayTask(obj) {
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
-      <span class="delete" onclick="deleteTask(this)">&#x274E</span>`;
+      <span class="buttondelete">&#x274E</span>`;
     li.children[1].textContent = obj.text;
-    li.dataset.Id= obj.createdAt
+    li.dataset.Id = obj.createdAt
     return li
 }
 
-function addTask(e) {
+
+
+const addTask = (e) => {
   e.preventDefault();
   const form = e.target;
-  const task = {
-    text: form.newTask.value.trim(),
-    done: false,
-    createdAt: new Date().getTime(),
-  };
-  localStorage.setItem(task.createdAt, JSON.stringify(task))
-  form.reset();
-
-  if (task.text) {
-    ul.appendChild(displayTask(task))
+  const taskText = form.newTask.value.trim();
+  if (taskText) {
+    const task = {
+      text: taskText,
+      done: false,
+      createdAt: new Date().getTime(),
+    };
+    const taskId = task.createdAt;
+    Ids.push(taskId);
+    localSW.setItem('Ids', Ids);
+    localSW.setItem(taskId, task);
+    form.reset();
+    ul.appendChild(displayTask(task));
   };
 };
 
-function deleteTask(e) {
-  li = e.parentElement;
-  localStorage.removeItem(li.dataset.Id);
+const deleteTask = (e) => {
+  const li = e.target.parentElement;
+  const taskId = parseInt(li.dataset.Id)
+  Ids.splice(Ids.indexOf(taskId),1)
+  localSW.setItem('Ids', Ids);
+  localSW.removeItem(li.dataset.Id);
   li.remove();
 };
+
+
+
+domHelper.on$('#taskForm', 'submit', addTask);
+domHelper.on$('#taskList', 'click', deleteTask);
 
 //Create (Set item)
 //localStorage.setItem('key',JSON.stringify({name: 'Task 1', done:false}));

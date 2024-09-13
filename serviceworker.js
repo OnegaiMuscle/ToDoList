@@ -4,7 +4,8 @@ const filesToCache = [
   './index.html',
   './style.css',
   './app.js',
-  './sw.js',
+  './serviceworker.js',
+
 ];
 
 const addContentToCache = async (content) => {
