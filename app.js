@@ -1,4 +1,4 @@
-import domHelper from "./domHelper.js";
+import dom from "./domHelper.js";
 import localSW from "./localStorageWrapper.js";
 
 //if ('serviceWorker' in navigator) {
@@ -7,18 +7,17 @@ import localSW from "./localStorageWrapper.js";
 
 
 
-const ul = domHelper.$('ul');
-let Ids = localSW.getItem('Ids') || [];
+const ul = dom.$('ul');
 
+let ids = localSW.getItem('Ids') || [];
 (function loadSavedTasks() {
-  Ids.forEach( x => {
+  ids.forEach( x => {
     const task = localSW.getItem(x);
     if (task.text) {
       ul.appendChild(displayTask(task));
     };
   });
 })();
-
 
 function displayTask(obj) {
   const li = document.createElement('li');
@@ -31,8 +30,6 @@ function displayTask(obj) {
     return li
 }
 
-
-
 const addTask = (e) => {
   e.preventDefault();
   const form = e.target;
@@ -41,11 +38,10 @@ const addTask = (e) => {
     const task = {
       text: taskText,
       done: false,
-      createdAt: new Date().getTime(),
     };
-    const taskId = task.createdAt;
-    Ids.push(taskId);
-    localSW.setItem('Ids', Ids);
+    const taskId = new Date().getTime();
+    ids.push(taskId);
+    localSW.setItem('Ids', ids);
     localSW.setItem(taskId, task);
     form.reset();
     ul.appendChild(displayTask(task));
@@ -60,42 +56,19 @@ const updateTask = (e) => {
 
 const deleteTask = (e) => {
   const li = e.target.parentElement;
-  const taskId = parseInt(li.dataset.Id)
-  Ids.splice(Ids.indexOf(taskId),1)
-  localSW.setItem('Ids', Ids);
-  localSW.removeItem(li.dataset.Id);
+  const taskId = Number(li.dataset.Id);
+  const id = ids.indexOf(taskId);
+  ids.splice(id ,1);
+  localSW.setItem('Ids', ids);
+  localSW.removeItem(taskId);
   li.remove();
 };
 
 
 
-domHelper.on$('#taskForm', 'submit', addTask);
-domHelper.on$('#taskList', 'click', updateTask);
+dom.on$('#taskForm', 'submit', addTask);
+dom.on$('#taskList', 'click', updateTask);
 
-//Create (Set item)
-//localStorage.setItem('key',JSON.stringify({name: 'Task 1', done:false}));
 
-//Read (Get item)
-//let task = JSON.parse(localStorage.getItem('key'));
-//console.log(task)
-
-//Update (Set item)
-//let updatedTask = {name: 'Task 1', done; true};
-//localStorage.setItem('key', JSON.stringify(updatedTask))
-
-//Delete (Remove item)
-//localStorage.removeItem('key')
-
-//function generateId() {
-//return Date.now().toString(36) + Math.random().toString(36).substr(2);
-//}
-
-//mutation observer
-
-//window.onstorage = () => {
-//  console.log("localstorage modifié");
-//};
-
-//function generateTaskId() {
-//  return 'task_' + new Date().getTime()
-//}
+//data action
+//drag drop
