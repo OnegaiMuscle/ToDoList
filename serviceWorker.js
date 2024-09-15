@@ -5,6 +5,8 @@ const filesToCache = [
   './style.css',
   './app.js',
   './serviceWorker.js',
+  './domHelper.js',
+  './localStorageWrapper.js',
 
 ];
 
