@@ -21,6 +21,7 @@ let ids = localSW.getItem('Ids') || [];
 
 function displayTask(obj) {
   const li = document.createElement('li');
+  li.setAttribute('draggable', 'true');
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
@@ -38,8 +39,9 @@ const addTask = (e) => {
     const task = {
       text: taskText,
       done: false,
+      createdAt: new Date().getTime(),
     };
-    const taskId = new Date().getTime();
+    const taskId = task.createdAt;
     ids.push(taskId);
     localSW.setItem('Ids', ids);
     localSW.setItem(taskId, task);
@@ -72,3 +74,42 @@ dom.on$('#taskList', 'click', updateTask);
 
 //data action
 //drag drop
+
+
+const sortable = document.getElementById('taskList');
+console.log(sortable)
+let dragged;
+
+sortable.addEventListener('dragstart', (event) => {
+  dragged = event.target;
+
+  event.target.style.opacity = 0.5;
+});
+
+sortable.addEventListener('dragend', (event) => {
+  event.target.style.opacity = "";
+});
+
+sortable.addEventListener('dragover', (event) => {
+  event.preventDefault();
+});
+
+sortable.addEventListener('dragenter', (event) => {
+  if (event.target.tagName === 'LI') {
+    event.target.style.border = '2px dashed #000';
+  }
+});
+
+sortable.addEventListener('dragleave', (event) => {
+  if (event.target.tagName === 'LI') {
+    event.target.style.border = '';
+  }
+});
+
+sortable.addEventListener('drop', (event) => {
+  event.preventDefault();
+  if (event.target.tagName === 'LI') {
+    event.target.style.border = '';
+    sortable.insertBefore(dragged, event.target.nextSibling);
+  }
+});
