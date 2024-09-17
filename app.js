@@ -25,13 +25,14 @@ function displayTask(obj) {
     li.innerHTML = `
       <input type="checkbox" name="checkTask">
       <p></p>
+      <span class="drag-handle">&#9776</span>
       <span class="delete">&#x274E</span>`;
     li.children[1].textContent = obj.text;
     li.dataset.Id = obj.createdAt
     return li
 }
 
-const addTask = (e) => {
+function addTask(e) {
   e.preventDefault();
   const form = e.target;
   const taskText = form.newTask.value.trim();
@@ -51,9 +52,9 @@ const addTask = (e) => {
 };
 
 const updateTask = (e) => {
- if (e.target.classList.contains('delete')) {
-  deleteTask(e)
- }
+  if (e.target.classList.contains('delete')) {
+    deleteTask(e)
+  }
 }
 
 const deleteTask = (e) => {
@@ -76,40 +77,66 @@ dom.on$('#taskList', 'click', updateTask);
 //drag drop
 
 
-const sortable = document.getElementById('taskList');
-console.log(sortable)
-let dragged;
+document.addEventListener('DOMContentLoaded', (event) => {
 
-sortable.addEventListener('dragstart', (event) => {
-  dragged = event.target;
+  let dragSrcEl = null;
 
-  event.target.style.opacity = 0.5;
-});
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
 
-sortable.addEventListener('dragend', (event) => {
-  event.target.style.opacity = "";
-});
+    dragSrcEl = this;
 
-sortable.addEventListener('dragover', (event) => {
-  event.preventDefault();
-});
-
-sortable.addEventListener('dragenter', (event) => {
-  if (event.target.tagName === 'LI') {
-    event.target.style.border = '2px dashed #000';
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
   }
-});
 
-sortable.addEventListener('dragleave', (event) => {
-  if (event.target.tagName === 'LI') {
-    event.target.style.border = '';
-  }
-});
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
 
-sortable.addEventListener('drop', (event) => {
-  event.preventDefault();
-  if (event.target.tagName === 'LI') {
-    event.target.style.border = '';
-    sortable.insertBefore(dragged, event.target.nextSibling);
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
   }
+
+  function handleDragEnter(e) {
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');
+  }
+
+  function handleDrop(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation(); // stops the browser from redirecting.
+    }
+
+    if (dragSrcEl != this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+    return false;
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+
+  let items = document.querySelectorAll('li');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart, false);
+    item.addEventListener('dragenter', handleDragEnter, false);
+    item.addEventListener('dragover', handleDragOver, false);
+    item.addEventListener('dragleave', handleDragLeave, false);
+    item.addEventListener('drop', handleDrop, false);
+    item.addEventListener('dragend', handleDragEnd, false);
+  });
 });
