@@ -6,6 +6,7 @@
 
 body {
   background: #000;
+  direction: ltr;
   font-family: Helvetica, sans-serif;
 }
 
@@ -85,4 +86,18 @@ input[type="checkbox"]:checked + p {
   padding-bottom: 0.25rem;
   text-align: center;
   cursor: pointer;
+}
+
+.draggable {
+  cursor: move;
+  user-select: none;
+}
+.dragging {
+  opacity: 0.5;
+}
+.dropzone {
+  min-height: 20px;
+  border: 2px dashed #ccc;
+  margin: 10px 0;
+  padding: 10px;
 }
