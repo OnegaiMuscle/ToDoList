@@ -92,12 +92,43 @@ input[type="checkbox"]:checked + p {
   cursor: move;
   user-select: none;
 }
-.dragging {
-  opacity: 0.5;
+
+
+#todoList {
+  list-style-type: none;
+  padding: 0;
 }
-.dropzone {
-  min-height: 20px;
-  border: 2px dashed #ccc;
-  margin: 10px 0;
+
+#todoList li {
   padding: 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: move;
+  transition: all 0.3s ease;
+}
+
+#todoList li:hover {
+  background-color: #e0e0e0;
+}
+
+#todoList li.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+#todoList li.dragging-active {
+  opacity: 0.8;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes slide-in {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+#todoList li:not(.dragging) {
+  animation: slide-in 0.3s ease;
 }
