@@ -5,7 +5,7 @@ const domHelper = {
   $$: (selector) => document.querySelectorAll(selector),
 
   on: (element, event, handler) => {
-    element.addEventListener(event, handler)
+    element.addEventListener(event, handler);
   },
 
   on$: (selector, event, handler) => {
@@ -14,7 +14,7 @@ const domHelper = {
 
   onAll: (selector, event, handler) => {
     document.querySelectorAll(selector).forEach(element => {
-      element.addEventListener(event, handler)
+      element.addEventListener(event, handler);
     });
   },
 };

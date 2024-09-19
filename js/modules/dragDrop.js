@@ -1,8 +1,10 @@
-export default function initDragDrop(containerId) {
-  const container = document.getElementById(containerId);
+import dom from "./domHelper.js";
+
+function dragDrop(zoneId) {
+  const zone = dom.$(zoneId)
   let isDragging = false;
 
-  container.addEventListener('dragstart', e => {
+  dom.on(zone,'dragstart', e => {
       isDragging = true;
       e.target.classList.add('dragging');
       setTimeout(() => {
@@ -10,29 +12,27 @@ export default function initDragDrop(containerId) {
       }, 0);
   });
 
-  container.addEventListener('dragover', e => {
+  dom.on(zone,'dragover', e => {
       e.preventDefault();
-      const afterElement = getDragAfterElement(container, e.clientY);
-      const draggable = document.querySelector('.dragging');
+      const afterElement = getDragAfterElement(zone, e.clientY);
+      const draggable = dom.$('.dragging');
       if (afterElement == null) {
-          container.appendChild(draggable);
+          zone.appendChild(draggable);
       } else {
-          container.insertBefore(draggable, afterElement);
+          zone.insertBefore(draggable, afterElement);
       }
   });
 
-  container.addEventListener('dragend', e => {
+  dom.on(zone,'dragend', e => {
       isDragging = false;
       e.target.classList.remove('dragging', 'dragging-active');
   });
-
-
 
   window.addEventListener('scroll', e => {
       if (isDragging) {
           e.preventDefault();
           window.scrollTo(window.scrollX, window.scrollY);
-      }
+      };
   }, { passive: false });
 
   document.addEventListener('mousemove', e => {
@@ -40,12 +40,12 @@ export default function initDragDrop(containerId) {
           const boundary = 50; // Zone de 50 pixels près des bords
           if (e.clientY < boundary || e.clientY > window.innerHeight - boundary) {
               e.preventDefault();
-          }
-      }
+          };
+      };
   });
 
-  function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+  function getDragAfterElement(zone, y) {
+      const draggableElements = [...zone.querySelectorAll('li:not(.dragging)')];
 
       return draggableElements.reduce((closest, child) => {
           const box = child.getBoundingClientRect();
@@ -54,7 +54,9 @@ export default function initDragDrop(containerId) {
               return { offset: offset, element: child };
           } else {
               return closest;
-          }
+          };
       }, { offset: Number.NEGATIVE_INFINITY }).element;
-  }
-}
+  };
+};
+
+export default dragDrop
