@@ -12,3 +12,4 @@ dom.on$('#todolist', 'click', task.update.bind(task));
 DragDrop('#todolist')
 
 // dragdrop not working with touch devices
+//pointer events
