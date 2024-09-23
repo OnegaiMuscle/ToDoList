@@ -1,62 +1,92 @@
 import dom from "./domHelper.js";
 
 function dragDrop(zoneId) {
-  const zone = dom.$(zoneId)
+  const zone = dom.$(zoneId);
+  let draggedElement = null;
   let isDragging = false;
+  let startY;
+  let startTop;
+  let longPressTimer;
+  const LONG_PRESS_DURATION =300;
 
-  dom.on(zone,'dragstart', e => {
-      isDragging = true;
-      e.target.classList.add('dragging');
-      setTimeout(() => {
-          e.target.classList.add('dragging-active');
-      }, 0);
+  zone.addEventListener('pointerdown', (e) => {
+    const li = e.target.closest('li');
+    console.log(li)
+    if (li) {
+        console.log('drag true');
+        draggedElement = li;
+        startY = e.clientY;
+
+        startTop = li.offsetTop;
+        longPressTimer = setTimeout(() => {
+          isDragging= true;
+          draggedElement = li;;
+          draggedElement.setPointerCapture(e.pointerId);
+          draggedElement.classList.add('dragging');
+        }, LONG_PRESS_DURATION);
+    }
   });
 
-  dom.on(zone,'dragover', e => {
-      e.preventDefault();
-      const afterElement = getDragAfterElement(zone, e.clientY);
-      const draggable = dom.$('.dragging');
-      if (afterElement == null) {
-          zone.appendChild(draggable);
-      } else {
-          zone.insertBefore(draggable, afterElement);
+  document.addEventListener('pointermove', (e) => {
+
+    if (longPressTimer) {
+      const moveY = Math.abs(e.clientY - startY);
+      if (moveY > 5) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null
+
+
       }
+    };
+
+    if (!isDragging) return;
+
+    const deltaY = e.clientY - startY;
+    draggedElement.style.top = `${startTop + deltaY}px`;
+
+    const afterElement = getDragAfterElement(zone, e.clientY);
+    if (afterElement == null) {
+        zone.appendChild(draggedElement);
+    } else {
+        zone.insertBefore(draggedElement, afterElement);
+    }
   });
 
-  dom.on(zone,'dragend', e => {
-      isDragging = false;
-      e.target.classList.remove('dragging', 'dragging-active');
-  });
+  document.addEventListener('pointerup', (e) => {
+    if (longPressTimer) {
+      const moveY = Math.abs(e.clientY - startY);
+      if (moveY > 5) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null
+      }
+    };
 
-  window.addEventListener('scroll', e => {
-      if (isDragging) {
-          e.preventDefault();
-          window.scrollTo(window.scrollX, window.scrollY);
-      };
-  }, { passive: false });
+    if (!isDragging) return;
+    isDragging = false;
+    draggedElement.classList.remove('dragging');
+    draggedElement.style.top = '';
+    draggedElement.releasePointerCapture(e.pointerId);
+    draggedElement = null;
 
-  document.addEventListener('mousemove', e => {
-      if (isDragging) {
-          const boundary = 50; // Zone de 50 pixels près des bords
-          if (e.clientY < boundary || e.clientY > window.innerHeight - boundary) {
-              e.preventDefault();
-          };
-      };
-  });
+  })
 
-  function getDragAfterElement(zone, y) {
-      const draggableElements = [...zone.querySelectorAll('li:not(.dragging)')];
 
-      return draggableElements.reduce((closest, child) => {
-          const box = child.getBoundingClientRect();
-          const offset = y - box.top - box.height / 2;
-          if (offset < 0 && offset > closest.offset) {
-              return { offset: offset, element: child };
-          } else {
-              return closest;
-          };
-      }, { offset: Number.NEGATIVE_INFINITY }).element;
-  };
+
+
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
 };
 
 export default dragDrop

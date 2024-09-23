@@ -134,3 +134,25 @@ input[type="checkbox"]:checked + p {
 #todoList li:not(.dragging) {
   animation: slide-in 0.8s ease;
 }
+
+.draggable {
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.dragging {
+  opacity: 0.5;
+  background-color: #e0e0e0;
+}
+#todoList {
+  min-height: 20px;
+  border: 2px dashed #ccc;
+  margin: 10px 0;
+  padding: 10px;
+  list-style-type: none;
+}
