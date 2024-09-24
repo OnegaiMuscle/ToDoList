@@ -7,7 +7,7 @@ function dragDrop(zoneId) {
   let startY;
   let startTop;
   let longPressTimer;
-  const LONG_PRESS_DURATION =300;
+  const LONG_PRESS_DURATION =1000;
 
   zone.addEventListener('pointerdown', (e) => {
     const li = e.target.closest('li');
