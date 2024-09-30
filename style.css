@@ -135,6 +135,14 @@ input[type="checkbox"]:checked + p {
   animation: slide-in 0.8s ease;
 }
 
+#todolist {
+  min-height: 20px;
+  border: 2px dashed #ccc;
+  margin: 10px 0;
+  padding: 10px;
+  list-style-type: none;
+  position: relative;
+}
 .draggable {
   cursor: move;
   user-select: none;
@@ -148,11 +156,11 @@ input[type="checkbox"]:checked + p {
 .dragging {
   opacity: 0.5;
   background-color: #e0e0e0;
+  position:absolute;
+  z-index: 1000;
 }
-#todoList {
-  min-height: 20px;
-  border: 2px dashed #ccc;
-  margin: 10px 0;
-  padding: 10px;
-  list-style-type: none;
+.placeholder{
+  background-color: #f9f9f9;
+  border:1px dashed #ccc;
+  visibility:hidden
 }

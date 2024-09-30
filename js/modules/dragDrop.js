@@ -91,80 +91,92 @@ function getDragAfterElement(container, y) {
 
 function dragDrop(zoneId) {
   const zone = dom.$(zoneId);
+  let draggedElement = null;
+  let placeholder = null
+  let isDragging = false;
+  let startY, startTop;
 
-            let draggedElement = null;
-            let isDragging = false;
-            let offsetY;
+  function onPointerDown(e) {
+    //if (e.target.classList.contains('delete-btn')) return;
 
-            function onPointerDown(e) {
-                const draggableElement = e.target.closest('li');
-                if (draggableElement) {
-                    e.preventDefault();
-                    isDragging = true;
-                    draggedElement = draggableElement;
-                    offsetY = e.clientY - draggedElement.getBoundingClientRect().top;
-                    draggedElement.setPointerCapture(e.pointerId);
-                    draggedElement.classList.add('dragging');
+    const draggableElement = e.target.closest('li');
+    if (draggableElement) {
+        e.preventDefault();
+        isDragging = true;
+        draggedElement = draggableElement;
+        const rect = draggedElement.getBoundingClientRect();
+        const listRect = zone.getBoundingClientRect();
+        startY = e.clientY - rect.top;
+        startTop = rect.top - listRect.top;
+        draggedElement.style.width = (rect.width - 2) + 'px';
+        draggedElement.style.height = rect.height + 'px';
 
-                    // Positionnement initial
-                    updateDraggedElementPosition(e.clientY);
-                }
-            }
+        placeholder = draggedElement.cloneNode(true);
+        placeholder.classList.add('placeholder');
+        //placeholder.style.visibility = 'hidden';
+        draggedElement.parentNode.insertBefore(placeholder, draggedElement.nextSibling);
 
-            function onPointerMove(e) {
-                if (!isDragging) return;
-                e.preventDefault();
-                updateDraggedElementPosition(e.clientY);
-            }
+        draggedElement.classList.add('dragging');
+        document.body.appendChild(draggedElement)
+        updateDraggedElementPosition(e.clientY);
+    }
+}
 
-            function onPointerUp(e) {
-                if (!isDragging) return;
-                isDragging = false;
-                draggedElement.classList.remove('dragging');
-                draggedElement.style.position = '';
-                draggedElement.style.top = '';
-                draggedElement.style.left = '';
-                draggedElement.style.width = '';
-                draggedElement.releasePointerCapture(e.pointerId);
-                draggedElement = null;
-            }
+function onPointerMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    updateDraggedElementPosition(e.clientY);
+}
 
-            function updateDraggedElementPosition(clientY) {
-                const containerRect = zone.getBoundingClientRect();
-                const draggedRect = draggedElement.getBoundingClientRect();
-                const draggedTop = clientY - offsetY;
+function onPointerUp(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    draggedElement.classList.remove('dragging');
+    draggedElement.style.position = '';
+    draggedElement.style.top = '';
+    draggedElement.style.left = '';
+    draggedElement.style.width = '';
+    draggedElement.style.height = '';
 
-                draggedElement.style.position = 'absolute';
-                draggedElement.style.top = `${draggedTop - containerRect.top}px`;
-                draggedElement.style.left = `${containerRect.left - draggedRect.left}px`;
-                draggedElement.style.width = `${draggedRect.width}px`;
+    placeholder.parentNode.replaceChild(draggedElement, placeholder);
+    placeholder = null;
+    draggedElement = null;
+}
 
-                const afterElement = getDragAfterElement(zone, clientY);
-                if (afterElement == null) {
-                    zone.appendChild(draggedElement);
-                } else {
-                    zone.insertBefore(draggedElement, afterElement);
-                }
-            }
+function updateDraggedElementPosition(clientY) {
+    const listRect = zone.getBoundingClientRect();
+    let top = clientY - listRect.top - startY;
+    top = Math.max(0, Math.min(top, listRect.height - draggedElement.offsetHeight));
 
-            function getDragAfterElement(container, y) {
-                const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+    draggedElement.style.position = 'absolute';
+    draggedElement.style.top = `${clientY - startY}px`;
+    draggedElement.style.left = `${listRect.left +10}px`;
+    const middleY = clientY - listRect.top;
+    const afterElement = getDragAfterElement(zone, middleY);
+    if (afterElement == null) {
+        zone.appendChild(placeholder);
+    } else {
+        zone.insertBefore(placeholder, afterElement);
+    }
+}
 
-                return draggableElements.reduce((closest, child) => {
-                    const box = child.getBoundingClientRect();
-                    const offset = y - box.top - box.height / 2;
-                    if (offset < 0 && offset > closest.offset) {
-                        return { offset: offset, element: child };
-                    } else {
-                        return closest;
-                    }
-                }, { offset: Number.NEGATIVE_INFINITY }).element;
-            }
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('li:not(.dragging):not(.placeholder)')];
 
-            zone.addEventListener('pointerdown', onPointerDown);
-            document.addEventListener('pointermove', onPointerMove);
-            document.addEventListener('pointerup', onPointerUp);
-            document.addEventListener('pointercancel', onPointerUp);
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+  zone.addEventListener('pointerdown', onPointerDown);
+  document.addEventListener('pointermove', onPointerMove);
+  document.addEventListener('pointerup', onPointerUp);
+  document.addEventListener('pointercancel', onPointerUp);
 
 }
 export default dragDrop

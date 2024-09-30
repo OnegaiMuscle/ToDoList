@@ -17,7 +17,7 @@ const taskHelper = {
 
   display(obj) {
     const li = document.createElement('li');
-    //li.setAttribute('draggable', 'true');//
+    li.setAttribute('draggable', 'true');
       li.innerHTML = `
         <input type="checkbox" name="checkTask">
         <p></p>
