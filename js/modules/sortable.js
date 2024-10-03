@@ -1,6 +1,6 @@
 import dom from "./domHelper.js";
 
-function sortable(containerId) {
+export default function sortable(containerId) {
   const ul = dom.$(containerId);
   let draggedItem = null;
   let isDragging = false;
@@ -17,7 +17,7 @@ function sortable(containerId) {
       draggedItem.classList.add('dragging');
       e.preventDefault();
     };
-  }
+  };
 
   function handlePointerMove(e) {
     if (isDragging) {
@@ -27,10 +27,9 @@ function sortable(containerId) {
       } else {
         ul.insertBefore(draggedItem, afterElement);
       }
-      //animateItems();
       e.preventDefault();
-    }
-  }
+    };
+  };
 
   function handlePointerUp(e) {
     if (isDragging) {
@@ -38,11 +37,10 @@ function sortable(containerId) {
       if (draggedItem) {
         draggedItem.classList.remove('dragging');
       }
-    draggedItem = null;
-    //resetItemPositions();
-    e.preventDefault();
-    }
-  }
+      draggedItem = null;
+      e.preventDefault();
+    };
+  };
 
   function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
@@ -55,26 +53,5 @@ function sortable(containerId) {
         return closest;
       }
     }, { offset: Number.NEGATIVE_INFINITY }).element;
-  }
-
-  function animateItems() {
-    const items = ul.querySelectorAll('li:not(.dragging)');
-    items.forEach((item, index) => {
-      const rect = item.getBoundingClientRect();
-      const listRect = ul.getBoundingClientRect();
-      const targetY = listRect.top + (index)*(rect.height) - rect.top;
-      item.style.transform = `translateY(${targetY}px)`;
-      item.classList.add('moving');
-    });
-  }
-
-  function resetItemPositions() {
-    const items = ul.querySelectorAll('li');
-    items.forEach(item => {
-      item.style.transform = '';
-      item.classList.remove('moving');
-    });
-  }
-}
-
-export default sortable
+  };
+};

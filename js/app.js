@@ -3,7 +3,7 @@ import task from './modules/taskHelper.js';
 import sortable from './modules/sortable.js';
 
 //if ('serviceWorker' in navigator) {
-//  navigator.serviceWorker.register('./modules/serviceworker.js');
+//  navigator.serviceWorker.register('./modules/sw.js');
 //};
 
 task.load()

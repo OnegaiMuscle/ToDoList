@@ -4,7 +4,7 @@ const filesToCache = [
   './index.html',
   './style.css',
   './js/app.js',
-  './js/modules/serviceWorker.js',
+  './js/modules/sw.js',
   './js/modules/domHelper.js',
   './js/modules/localStorageWrapper.js',
   './js/modules/taskHelper.js',
