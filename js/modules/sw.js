@@ -5,7 +5,7 @@ const filesToCache = [
   './style.css',
   './js/app.js',
   './js/modules/sw.js',
-  './js/modules/domHelper.js',
+  './js/modules/domWrapper.js',
   './js/modules/localStorageWrapper.js',
   './js/modules/taskHelper.js',
   './js/modules/sortable.js',

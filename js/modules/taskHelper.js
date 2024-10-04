@@ -1,4 +1,4 @@
-import dom from "./domHelper.js";
+import dom from "./domWrapper.js";
 import localSW from "./localStorageWrapper.js";
 
 const ul = dom.$('ul');

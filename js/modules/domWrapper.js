@@ -1,4 +1,4 @@
-const domHelper = {
+const domWrapper = {
 
   $: (selector) => document.querySelector(selector),
 
@@ -19,4 +19,4 @@ const domHelper = {
   },
 };
 
-export default domHelper;
+export default domWrapper;

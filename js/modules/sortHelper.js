@@ -1,6 +1,6 @@
-import dom from "./domHelper.js";
+import dom from "./domWrapper.js";
 
-export default function sortable(containerId) {
+export default function sortHelper(containerId) {
   const ul = dom.$(containerId);
   let draggedItem = null;
   let isDragging = false;

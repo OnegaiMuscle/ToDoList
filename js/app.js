@@ -1,6 +1,6 @@
-import dom from './modules/domHelper.js';
+import dom from './modules/domWrapper.js';
 import task from './modules/taskHelper.js';
-import sortable from './modules/sortable.js';
+import sortHelper from './modules/sortHelper.js';
 
 //if ('serviceWorker' in navigator) {
 //  navigator.serviceWorker.register('./modules/sw.js');
@@ -9,4 +9,4 @@ import sortable from './modules/sortable.js';
 task.load()
 dom.on$('#taskForm', 'submit', task.add.bind(task));
 dom.on$('#todolist', 'click', task.update.bind(task));
-sortable('#todolist')
+sortHelper('#todolist')
