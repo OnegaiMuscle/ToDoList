@@ -7,8 +7,8 @@ let ids = localSW.getItem('Ids') || [];
 const taskHelper = {
 
   load() {
-    ids.forEach( x => {
-      const task = localSW.getItem(x);
+    ids.forEach( id => {
+      const task = localSW.getItem(id);
       if (task.text) {
         ul.appendChild(this.display(task));
       };
@@ -16,17 +16,14 @@ const taskHelper = {
   },
 
   display(obj) {
-    const li = document.createElement('li');
+    const template = dom.$('#todotask')
+    const clone = template.content.cloneNode(true)
+    const li = clone.querySelector('li')
     li.setAttribute('draggable', 'true');
-      li.innerHTML = `
-        <input type="checkbox" name="checkTask">
-        <p></p>
-        <span class="drag-handle">&#9776</span>
-        <span class="delete" data-action="delete">&#x274E</span>`;
-      li.children[1].textContent = obj.text;
-      li.dataset.id = obj.createdAt;
-      li.dataset.action = 'drag';
-      return li;
+    li.children[1].textContent = obj.text;
+    li.dataset.id = obj.createdAt;
+    li.dataset.action = 'drag';
+    return clone;
   },
 
   add(e) {

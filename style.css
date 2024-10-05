@@ -104,7 +104,7 @@ input[type="checkbox"]:checked + p {
 
 #todolist li {
   margin: 0.5rem 0;
-  background-color: #f5f5f5;
+  background-color: #f0f0f0;
   border: 0.0625rem solid #ccc;
   border-radius: 1.5rem;
   cursor: move;
@@ -112,13 +112,9 @@ input[type="checkbox"]:checked + p {
   touch-action: none;
 }
 
-#todolist li:hover {
-  background-color: #e0e0e0;
-}
-
 #todolist li.dragging {
   opacity: 0.5;
-  transform: scale(0.95);
+  transform: scale(0.875);
 }
 
 #todolist li.dragging-active {
@@ -133,7 +129,7 @@ input[type="checkbox"]:checked + p {
 }
 
 #todoList li:not(.dragging) {
-  transform: translateY(0);
+  transform: translateY(10);
 }
 
 #todolist {
@@ -153,12 +149,6 @@ input[type="checkbox"]:checked + p {
   background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-.dragging {
-  opacity: 0.5;
-  transform: scale(0.75);
-  background-color: #e0e0e0;
-
 }
 
 .moving {
