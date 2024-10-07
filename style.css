@@ -48,6 +48,9 @@ input[type="text"] {
 
 input[type="submit"] {
   color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  padding: 0rem 0.5625rem;
   background-color: #ff8000;
   cursor: pointer;
   position: absolute;
@@ -86,10 +89,14 @@ input[type="checkbox"]:checked + p {
 }
 
 .delete {
-  flex: 1;
-  padding-bottom: 0.0625rem;
+  margin-right: 0.125rem;
+  padding:0rem 0.4375rem;
   text-align: center;
   cursor: pointer;
+  font-size: 1.5rem;
+  color:#fff;
+  background-color: #ccc;
+  border-radius: 1.5rem;
 }
 
 .draggable {
@@ -105,7 +112,7 @@ input[type="checkbox"]:checked + p {
 #todolist li {
   margin: 0.5rem 0;
   background-color: #f0f0f0;
-  border: 0.0625rem solid #ccc;
+  border: 0.125rem solid #ccc;
   border-radius: 1.5rem;
   cursor: move;
   transition: all 0.3s ease;
@@ -115,21 +122,6 @@ input[type="checkbox"]:checked + p {
 #todolist li.dragging {
   opacity: 0.5;
   transform: scale(0.875);
-}
-
-#todolist li.dragging-active {
-  opacity: 0.8;
-  transform: scale(1.05);
-  box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.2);
-}
-
-@keyframes slide-in {
-  from { transform: translateY(20px); opacity: 0.5; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-#todoList li:not(.dragging) {
-  transform: translateY(10);
 }
 
 #todolist {
