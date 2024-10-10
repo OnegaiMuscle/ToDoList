@@ -11,6 +11,7 @@ export default function sortHelper(containerId) {
   dom.on(document, 'pointercancel', handlePointerUp);
 
   function handlePointerDown(e) {
+    if (e.target.dataset.action == 'delete') return;
     draggedItem = e.target.closest('li');
     if (draggedItem) {
       isDragging = true;

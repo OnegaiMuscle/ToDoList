@@ -3,12 +3,13 @@ const filesToCache = [
   './',
   './index.html',
   './style.css',
+  './favicon.svg',
   './js/app.js',
   './js/modules/sw.js',
   './js/modules/domWrapper.js',
   './js/modules/localStorageWrapper.js',
   './js/modules/taskHelper.js',
-  './js/modules/sortable.js',
+  './js/modules/sortHelper.js',
 ];
 
 const addContentToCache = async (content) => {

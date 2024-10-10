@@ -57,7 +57,6 @@ const taskHelper = {
 
   update(e) {
     if (e.target.dataset.action=='delete') {
-      e.stopPropagation()
       return this.delete(e)
     };
   },
