@@ -36,7 +36,7 @@ const taskHelper = {
         done: false,
         createdAt: new Date().getTime(),
       };
-      const taskId = task.createdAt;
+      const taskId = task.createdAt.toString();
       ids.push(taskId);
       localSW.setItem('Ids', ids);
       localSW.setItem(taskId, task);
@@ -47,7 +47,7 @@ const taskHelper = {
 
   delete(e) {
     const li = e.target.parentElement;
-    const taskId = Number(li.dataset.id);
+    const taskId = li.dataset.id;
     const id = ids.indexOf(taskId);
     ids.splice(id ,1);
     localSW.setItem('Ids', ids);

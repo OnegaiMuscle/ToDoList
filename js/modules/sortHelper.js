@@ -1,4 +1,5 @@
 import dom from "./domWrapper.js";
+import localSW from "./localStorageWrapper.js";
 
 export default function sortHelper(containerId) {
   const ul = dom.$(containerId);
@@ -38,7 +39,13 @@ export default function sortHelper(containerId) {
       if (draggedItem) {
         draggedItem.classList.remove('dragging');
       }
+      const lis = ul.querySelectorAll('li');
+      let ids = Array.from(lis).map(li => li.dataset.id);
+      localSW.setItem('Ids', ids)
       draggedItem = null;
+
+
+
       e.preventDefault();
     };
   };
