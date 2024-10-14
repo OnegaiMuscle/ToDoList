@@ -12,7 +12,7 @@ export default function sortHelper(containerId) {
   dom.on(document, 'pointercancel', handlePointerUp);
 
   function handlePointerDown(e) {
-    if (e.target.dataset.action == 'delete') return;
+    if (e.target.dataset.action) return;
     draggedItem = e.target.closest('li');
     if (draggedItem) {
       isDragging = true;

@@ -3,15 +3,24 @@ import localSW from "./localStorageWrapper.js";
 
 export default function taskHelper(containerId) {
   const ul = dom.$(containerId);
-  let ids = localSW.getItem('Ids') || [];
 
   dom.on(document, 'DOMContentLoaded', loadTasks);
   dom.on$('#taskForm', 'submit', addTask);
-  dom.on$('#todolist', 'click', update);
+  dom.on$('#todolist', 'click', runTask);
+
+  function display(obj) {
+    const template = dom.$('#todotask');
+    const clone = template.content.cloneNode(true);
+    const li = clone.querySelector('li');
+    li.children[0].checked = obj.done;
+    li.children[1].textContent = obj.text;
+    li.dataset.id = obj.createdAt;
+    return clone;
+  };
 
   function loadTasksIds() {
     return localSW.getItem('Ids') || [];
-  }
+  };
 
   function loadTasks() {
     const ids = loadTasksIds();
@@ -23,23 +32,14 @@ export default function taskHelper(containerId) {
     });
   };
 
-  function display(obj) {
-    const template = dom.$('#todotask')
-    const clone = template.content.cloneNode(true)
-    const li = clone.querySelector('li')
-    li.children[1].textContent = obj.text;
-    li.dataset.id = obj.createdAt;
-    return clone;
-  }
-
   function addTask(e) {
     e.preventDefault();
     const form = e.target;
     const taskText = form.newTask.value.trim();
     if (taskText) {
       const task = {
-        text: taskText,
         done: false,
+        text: taskText,
         createdAt: new Date().getTime(),
       };
       const taskId = task.createdAt.toString();
@@ -50,23 +50,33 @@ export default function taskHelper(containerId) {
       form.reset();
       ul.appendChild(display(task));
     };
-  }
+  };
 
-  function deleteTask(e) {
+  function runTask(e) {
+    const userAction = e.target.dataset.action;
+    if (!userAction) return;
     const li = e.target.parentElement;
     const taskId = li.dataset.id;
-    let ids = loadTasksIds();
-    const id = ids.indexOf(taskId);
-    ids.splice(id ,1);
-    localSW.setItem('Ids', ids);
-    localSW.removeItem(taskId);
-    li.remove();
-  }
 
-  function update(e) {
-    if (e.target.dataset.action=='delete') {
-      console.log(e.target.dataset.action)
-      deleteTask(e)
+    const tasks = {
+      check: () => {
+        const task = localSW.getItem(taskId);
+        task.done = e.target.checked;
+        localSW.setItem(taskId, task);
+      },
+
+      delete: () => {
+        let ids = loadTasksIds();
+        const id = ids.indexOf(taskId);
+        ids.splice(id ,1);
+        localSW.setItem('Ids', ids);
+        localSW.removeItem(taskId);
+        li.remove();
+      },
+
+      update: () => {console.log(2)},
     };
+
+    if (userAction) tasks[userAction]();
   }
 };

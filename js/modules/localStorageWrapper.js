@@ -1,5 +1,4 @@
 const localStorageWrapper = {
-
   prefix: 'task_',
 
   setItem(key, value) {

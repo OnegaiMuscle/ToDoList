@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List Javascript Web Application</title>
   <meta name="description" content="Free To-Do List Application in your Web Browser coded in Vanilla Javascript.">
+  <meta name="author" content="TRAN Duc Tai">
+  <meta name="keywords" content="to-do list, task app, free, javascript, hfr">
   <meta name="google" value="notranslate">
   <meta name="google-site-verification" content="kilHfApEs2i27dVAf94cXPf3Eh_l7DPjLWY3t5lNY3I" />
   <link rel="canonical" href="https://onegaimuscle.github.io/ToDoList/">
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-
 </head>
 <body>
+  <noscript>
+    <p>"You need to enable JavaScript to run this app."</p>
+  </noscript>
   <div class="todo-container">
     <h2>To-Do List</h2>
     <form id="taskForm">
@@ -23,7 +27,7 @@
   </div>
   <template id="todotask">
     <li>
-      <input type="checkbox" name="checkTask">
+      <input type="checkbox" name="checkTask" data-action="check">
       <p></p>
       <span class="delete" data-action="delete">&#xD7</span>
     </li>

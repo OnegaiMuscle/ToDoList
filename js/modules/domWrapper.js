@@ -1,5 +1,4 @@
 const domWrapper = {
-
   $: (selector) => document.querySelector(selector),
 
   $$: (selector) => document.querySelectorAll(selector),
