@@ -43,9 +43,6 @@ export default function sortHelper(containerId) {
       let ids = Array.from(lis).map(li => li.dataset.id);
       localSW.setItem('Ids', ids)
       draggedItem = null;
-
-
-
       e.preventDefault();
     };
   };
