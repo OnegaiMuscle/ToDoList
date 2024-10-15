@@ -18,12 +18,8 @@ export default function taskHelper(containerId) {
     return clone;
   };
 
-  function loadTasksIds() {
-    return localSW.getItem('Ids') || [];
-  };
-
   function loadTasks() {
-    const ids = loadTasksIds();
+    const ids = localSW.getItem('Ids') || [];
     ids.forEach( id => {
       const task = localSW.getItem(id);
       if (task.text) {
@@ -43,7 +39,7 @@ export default function taskHelper(containerId) {
         createdAt: new Date().getTime(),
       };
       const taskId = task.createdAt.toString();
-      let ids = loadTasksIds();
+      let ids = localSW.getItem('Ids') || [];
       ids.push(taskId);
       localSW.setItem('Ids', ids);
       localSW.setItem(taskId, task);
@@ -66,7 +62,7 @@ export default function taskHelper(containerId) {
       },
 
       delete: () => {
-        let ids = loadTasksIds();
+        let ids = localSW.getItem('Ids') || [];
         const id = ids.indexOf(taskId);
         ids.splice(id ,1);
         localSW.setItem('Ids', ids);
