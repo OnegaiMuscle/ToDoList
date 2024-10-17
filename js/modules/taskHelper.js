@@ -38,7 +38,7 @@ export default function taskHelper(containerId) {
         text: taskText,
         createdAt: new Date().getTime(),
       };
-      const taskId = task.createdAt.toString();
+      const taskId = task.createdAt + '';
       let ids = localSW.getItem('Ids') || [];
       ids.push(taskId);
       localSW.setItem('Ids', ids);
@@ -50,29 +50,29 @@ export default function taskHelper(containerId) {
 
   function runTask(e) {
     const userAction = e.target.dataset.action;
-    if (!userAction) return;
-    const li = e.target.parentElement;
-    const taskId = li.dataset.id;
+    if (userAction) {
+      const li = e.target.parentElement;
+      const taskId = li.dataset.id;
+      const tasks = {
+        check: () => {
+          const task = localSW.getItem(taskId);
+          task.done = e.target.checked;
+          localSW.setItem(taskId, task);
+        },
 
-    const tasks = {
-      check: () => {
-        const task = localSW.getItem(taskId);
-        task.done = e.target.checked;
-        localSW.setItem(taskId, task);
-      },
+        delete: () => {
+          let ids = localSW.getItem('Ids');
+          const id = ids.indexOf(taskId);
+          ids.splice(id ,1);
+          localSW.setItem('Ids', ids);
+          localSW.removeItem(taskId);
+          li.remove();
+        },
 
-      delete: () => {
-        let ids = localSW.getItem('Ids') || [];
-        const id = ids.indexOf(taskId);
-        ids.splice(id ,1);
-        localSW.setItem('Ids', ids);
-        localSW.removeItem(taskId);
-        li.remove();
-      },
+        update: () => {console.log(2)},
+      };
 
-      update: () => {console.log(2)},
+      tasks[userAction]();
     };
-
-    if (userAction) tasks[userAction]();
-  }
+  };
 };
