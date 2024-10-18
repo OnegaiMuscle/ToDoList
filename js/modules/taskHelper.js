@@ -58,6 +58,7 @@ export default function taskHelper(containerId) {
           const task = localSW.getItem(taskId);
           task.done = e.target.checked;
           localSW.setItem(taskId, task);
+          e.target.classList.toggle("done")
         },
 
         delete: () => {

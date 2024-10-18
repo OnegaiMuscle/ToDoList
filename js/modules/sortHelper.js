@@ -23,18 +23,19 @@ export default function sortHelper(containerId) {
 
   function handlePointerMove(e) {
     if (isDragging) {
+      e.preventDefault();
       const afterElement = getDragAfterElement(ul, e.clientY);
       if (afterElement == null) {
         ul.appendChild(draggedItem);
       } else {
         ul.insertBefore(draggedItem, afterElement);
-      }
-      e.preventDefault();
+      };
     };
   };
 
   function handlePointerUp(e) {
     if (isDragging) {
+      e.preventDefault();
       isDragging = false;
       if (draggedItem) {
         draggedItem.classList.remove('dragging');
@@ -43,7 +44,6 @@ export default function sortHelper(containerId) {
       let ids = Array.from(lis).map(li => li.dataset.id);
       localSW.setItem('Ids', ids)
       draggedItem = null;
-      e.preventDefault();
     };
   };
 

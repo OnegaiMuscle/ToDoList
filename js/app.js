@@ -9,12 +9,16 @@ taskHelper('#todolist')
 sortHelper('#todolist')
 
 const todoList = document.getElementById('todolist');
-const taskCountDisplay = document.getElementById('task-count');
+const totalCountDisplay = document.getElementById('total-count');
+const completedCountDisplay = document.getElementById('completed-count');
 function updateTaskCount() {
-  const count = todoList.children.length;
-  taskCountDisplay.textContent = `Tasks number : ${count}`;
-  console.log("changement")
+  const totalCount = todoList.children.length;
+  const completedCount = todoList.querySelectorAll('input[type="checkbox"]:checked').length;
+  totalCountDisplay.textContent = `Tasks number : ${totalCount}`;
+  completedCountDisplay.textContent = `Tasks done : ${completedCount}`;
+  console.log("change")
 }
 
 const observer = new MutationObserver(updateTaskCount);
-observer.observe(todoList, { childList: true });
+observer.observe(todoList, { childList: true, subtree: true,attributes: true,
+  attributeFilter: ['class']  });
