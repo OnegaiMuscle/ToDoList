@@ -12,3 +12,5 @@ function updateTaskCount() {
 const observer = new MutationObserver(updateTaskCount);
 observer.observe(todoList, { childList: true, subtree: true,attributes: true,
   attributeFilter: ['class']  });
+
+  
