@@ -1,7 +1,7 @@
 import dom from "./domWrapper.js";
 import localSW from "./localStorageWrapper.js";
 
-export default function sortHelper(containerId) {
+export default function taskSorter(containerId) {
   const ul = dom.$(containerId);
   let draggedItem = null;
   let isDragging = false;
