@@ -15,5 +15,5 @@ export default function taskCounter(containerId) {
     tasks.textContent = `Tasks number : ${totalCount}`;
     taskDone.textContent = `Tasks done : ${completedCount}`;
     console.log("change")
-  }
-}
+  };
+};

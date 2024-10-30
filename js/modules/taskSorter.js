@@ -15,9 +15,9 @@ export default function taskSorter(containerId) {
     if (e.target.dataset.action) return;
     draggedItem = e.target.closest('li');
     if (draggedItem) {
+      e.preventDefault();
       isDragging = true;
       draggedItem.classList.add('dragging');
-      e.preventDefault();
     };
   };
 
