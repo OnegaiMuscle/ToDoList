@@ -129,16 +129,7 @@ input[type="checkbox"]:checked + p {
   list-style-type: none;
   position: relative;
 }
-.draggable {
-  cursor: move;
-  user-select: none;
-  touch-action: none;
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
+
 
 .moving {
   transition: transform 0.25s ease;
