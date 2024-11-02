@@ -96,10 +96,6 @@ input[type="checkbox"]:checked + p {
   border-radius: 1.5rem;
 }
 
-.draggable {
-  cursor: move;
-  user-select: none;
-}
 
 #todolist {
   list-style-type: none;
