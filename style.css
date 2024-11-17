@@ -145,8 +145,17 @@ input[type="checkbox"]:checked + p {
   padding: 4px;
 }
 
+#todo{
+  border: 1px dashed #ccc;
+  border-radius: 16px;
+  margin: 10px;
+  padding: 4px;
+}
+
 .counter{
   border: 1px dashed #ccc;
-  margin: 10px ;
-  padding: 10px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
