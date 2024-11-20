@@ -131,26 +131,6 @@ input[type="checkbox"]:checked + p {
   transition: transform 0.25s ease;
 }
 
-#total-count {
-  border: 1px dashed #ccc;
-  border-radius: 16px;
-  margin: 10px;
-  padding: 4px;
-}
-
-#completed-count{
-  border: 1px dashed #ccc;
-  border-radius: 16px;
-  margin: 10px;
-  padding: 4px;
-}
-
-#todo{
-  border: 1px dashed #ccc;
-  border-radius: 16px;
-  margin: 10px;
-  padding: 4px;
-}
 
 .counter{
   border: 1px dashed #ccc;
@@ -158,4 +138,15 @@ input[type="checkbox"]:checked + p {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+/*input[type="radio"] {display: none;}*/
+
+.counter li {
+  padding: 5px;
+}
+
+li:has(input[type="radio"]:checked) {
+  border: 2px solid blue;
+  border-radius: 24px;
 }
