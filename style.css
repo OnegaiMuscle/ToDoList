@@ -190,7 +190,6 @@ li:has(input[type="radio"]:checked) {
   border-top: none;
 }
 
-
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
 #tab3:checked ~ #content3 {
