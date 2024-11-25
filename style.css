@@ -158,7 +158,6 @@ li:has(input[type="radio"]:checked) {
   font-family: Arial, sans-serif;
 }
 
-/* Cacher les boutons radio */
 .tab-input {
   display: none;
 }
