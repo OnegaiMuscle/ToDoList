@@ -19,16 +19,16 @@
   </noscript>
   <div class="todo-container">
     <h2>To-Do List</h2>
+
+
     <form id="taskForm">
       <input type="text" name="newTask" placeholder="Add your task" maxlength="32">
       <input type="submit" value="Add">
     </form>
-    <ul id="todolist"></ul>
-
   <div class="tab-container">
-    <input type="radio" name="tabs" id="tab1" class="tab-input" checked>
+    <input type="radio" name="tabs" id="tab1" class="tab-input">
     <input type="radio" name="tabs" id="tab2" class="tab-input">
-    <input type="radio" name="tabs" id="tab3" class="tab-input">
+    <input type="radio" name="tabs" id="tab3" class="tab-input" checked>
 
     <div class="tabs">
         <label for="tab1" class="tab-label">Onglet 1</label>
@@ -37,23 +37,16 @@
     </div>
 
     <div class="tab-content" id="content1">
-      <h2>Contenu de l'onglet 1</h2>
-    </div>
 
-    <div class="tab-content" id="content2">
-      <h2>Contenu de l'onglet 2</h2>
-    </div>
 
-    <div class="tab-content" id="content3">
-      <h2>Contenu de l'onglet 3</h2>
-    </div>
+    <ul id="todolist"></ul>
 </div>
-
+</div>
 </div>
 
 
   <template id="todotask">
-    <li>
+    <li class="content-item">
       <input type="checkbox" name="checkTask" data-action="check">
       <p></p>
       <span class="delete" data-action="delete">&#xD7</span>

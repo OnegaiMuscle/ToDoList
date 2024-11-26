@@ -183,15 +183,26 @@ li:has(input[type="radio"]:checked) {
 }
 
 .tab-content {
-  display: none;
+
   padding: 20px;
   border: 1px solid #ccc;
   border-top: none;
 }
 
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3 {
+.content-item {
+  background-color: #000;
+}
+
+#tab1:checked  ~.content-item:has(input:checked){
+  background-color: #000
+}
+
+
+#tab2:checked ~ .content-item{
+  display: block;
+}
+
+#tab3:checked ~ #content1 {
   display: block;
 }
 
