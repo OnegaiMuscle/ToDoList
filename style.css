@@ -119,11 +119,12 @@ input[type="checkbox"]:checked + p {
 
 #todolist {
   min-height: 20px;
-  border: 2px dashed #ccc;
-  margin: 10px 0;
+  margin: 0px 0;
   padding: 10px;
   list-style-type: none;
   position: relative;
+  border: 1px solid #ccc;
+  border-top: none;
 }
 
 
@@ -189,22 +190,14 @@ li:has(input[type="radio"]:checked) {
   border-top: none;
 }
 
-.content-item {
-  background-color: #000;
+#tab1:checked  ~#todolist .content-item:has(input:checked){
+  display: none;
 }
 
-#tab1:checked  ~.content-item:has(input:checked){
-  background-color: #000
+#tab2:checked  ~#todolist .content-item:has(input:not(:checked)){
+  display: none;
 }
 
-
-#tab2:checked ~ .content-item{
-  display: block;
-}
-
-#tab3:checked ~ #content1 {
-  display: block;
-}
 
 #tab1:checked ~ .tabs label[for="tab1"],
 #tab2:checked ~ .tabs label[for="tab2"],
