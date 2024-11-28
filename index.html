@@ -6,7 +6,7 @@
   <title>To-Do List Javascript Web Application</title>
   <meta name="description" content="Free To-Do List Application in your Web Browser coded in Vanilla Javascript.">
   <meta name="author" content="TRAN Duc Tai">
-  <meta name="keywords" content="to-do list, task app, free, javascript, hfr">
+  <meta name="keywords" content="google tasks, to do list, task, free, web, application, javascript, hfr, tools, forum, hardware">
   <meta name="google" value="notranslate">
   <meta name="google-site-verification" content="kilHfApEs2i27dVAf94cXPf3Eh_l7DPjLWY3t5lNY3I" />
   <link rel="canonical" href="https://onegaimuscle.github.io/ToDoList/">
@@ -19,32 +19,22 @@
   </noscript>
   <div class="todo-container">
     <h2>To-Do List</h2>
-
-
     <form id="taskForm">
       <input type="text" name="newTask" placeholder="Add your task" maxlength="32">
       <input type="submit" value="Add">
     </form>
-  <div class="tab-container">
-    <input type="radio" name="tabs" id="tab1" class="tab-input">
-    <input type="radio" name="tabs" id="tab2" class="tab-input">
-    <input type="radio" name="tabs" id="tab3" class="tab-input" checked>
-
-    <div class="tabs">
-      <label for="tab1" class="tab-label">Onglet 1</label>
-      <label for="tab2" class="tab-label">Onglet 2</label>
-      <label for="tab3" class="tab-label">Onglet 3</label>
+    <div class="tab-container">
+      <input type="radio" name="tabs" id="tab1" class="tab-input" checked>
+      <input type="radio" name="tabs" id="tab2" class="tab-input">
+      <input type="radio" name="tabs" id="tab3" class="tab-input">
+      <div class="tabs">
+        <label for="tab1" class="tab-label">Onglet 1</label>
+        <label for="tab2" class="tab-label">Onglet 2</label>
+        <label for="tab3" class="tab-label">Onglet 3</label>
+      </div>
+      <ul id="todolist"></ul>
     </div>
-
-
-      <ul id="todolist">
-
-
-      </ul>
-</div>
-</div>
-
-
+  </div>
   <template id="todotask">
     <li class="content-item">
       <input type="checkbox" name="checkTask" data-action="check">
