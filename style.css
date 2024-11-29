@@ -190,19 +190,15 @@ li:has(input[type="radio"]:checked) {
   border-top: none;
 }
 
-#tab1:checked  ~#todolist .content-item:has(input:checked){
-  display: none;
-}
-
-#tab2:checked  ~#todolist .content-item:has(input:not(:checked)){
-  display: none;
-}
-
-
 #tab1:checked ~ .tabs label[for="tab1"],
 #tab2:checked ~ .tabs label[for="tab2"],
 #tab3:checked ~ .tabs label[for="tab3"] {
   background-color: white;
   border-bottom: 1px solid white;
   margin-bottom: -1px;
+}
+
+#tab1:checked  ~#todolist .content-item:has(input:checked),
+#tab2:checked  ~#todolist .content-item:has(input:not(:checked)) {
+  display: none;
 }
