@@ -9,7 +9,8 @@ const filesToCache = [
   './js/modules/domWrapper.js',
   './js/modules/localStorageWrapper.js',
   './js/modules/taskHelper.js',
-  './js/modules/sortHelper.js',
+  './js/modules/taskSorter.js',
+  './js/modules/taskCounter.js',
 ];
 
 const addContentToCache = async (content) => {
