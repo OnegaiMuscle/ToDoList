@@ -11,9 +11,9 @@ body {
 
 .todo-container {
   width: 480px;
-  height: 100vh;
+  height: 100dvh;
   margin: 0 auto;
-  background: #fff;
+  background: #ddeeff;
   overflow-y: auto;
   scrollbar-gutter: stable both-edges;
 }
@@ -28,6 +28,7 @@ form {
   border: 4px solid #ff8000;
   border-radius: 24px;
   display: flex;
+  background-color: #fff;
 }
 
 input {
@@ -72,14 +73,14 @@ input[type="submit"] {
 }
 
 .tab-label:hover {
-  background-color: #ddd;
+  background-color: #ccc;
 }
 
 #tab1:checked ~ .tabs label[for="tab1"],
 #tab2:checked ~ .tabs label[for="tab2"],
 #tab3:checked ~ .tabs label[for="tab3"] {
-  background-color: #fff;
-  border-bottom: 2px solid #fff;
+  background-color: #ddd;
+  border-bottom: 2px solid #ddd;
   margin-bottom: -2px;
 }
 
@@ -136,7 +137,7 @@ input[type="checkbox"]:checked + p {
 
 #todolist li {
   margin: 0.5rem 0;
-  background-color: #fff;
+  background-color: #f5d3b1;
   border: 0.125rem solid #ff8000;
   border-radius: 1.5rem;
   cursor: move;
@@ -158,6 +159,7 @@ input[type="checkbox"]:checked + p {
   position: relative;
   border: 2px solid #ff8000;
   border-top: none;
+  background-color: #ddd;
 }
 
 .moving {
