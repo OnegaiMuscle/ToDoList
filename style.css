@@ -10,50 +10,82 @@ body {
 }
 
 .todo-container {
-  max-width: 480px;
-  min-width: 240px;
-  width: 95%;
+  width: 480px;
+  height: 100vh;
+  margin: 0 auto;
   background: #fff;
-  padding: 1rem;
-  margin: 0.75rem auto;
-  border-radius: 1rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
 }
 
-.todo-container h2 {
-  margin-bottom: 1rem;
-  text-align: center;
+form, .tab-container {
+  width: 440px;
+  margin: 20px auto;
 }
 
 form {
-  border: 0.125rem solid #ff8000;
-  border-radius: 1.5rem;
+  height: 48px;
+  border: 4px solid #ff8000;
+  border-radius: 24px;
   display: flex;
-  flex-direction: row-reverse;
-  position: relative;
 }
 
 input {
   border: none;
   outline: none;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  margin: 0.25rem;
-  border-radius: 1.5rem;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 16px;
 }
 
 input[type="text"] {
   flex: 1;
-  position: relative;
 }
 
 input[type="submit"] {
   color: #fff;
   background-color: #ff8000;
   cursor: pointer;
-  position: absolute;
-  right: 0rem;
-  top: 50%;
-  transform: translateY(-62.5%);
+}
+
+.tab-input {
+  display: none;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid #ff8000;
+}
+
+.tab-label {
+  padding: 10px 20px;
+  background-color: #eee;
+  border: 2px solid #ff8000;
+  border-bottom: none;
+  margin-right: 16px;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  transition: background-color 0.3s;
+}
+
+.tab-label:hover {
+  background-color: #ddd;
+}
+
+#tab1:checked ~ .tabs label[for="tab1"],
+#tab2:checked ~ .tabs label[for="tab2"],
+#tab3:checked ~ .tabs label[for="tab3"] {
+  background-color: #fff;
+  border-bottom: 2px solid #fff;
+  margin-bottom: -2px;
+}
+
+#tab2:checked  ~#todolist .content-item:has(input:checked),
+#tab3:checked  ~#todolist .content-item:has(input:not(:checked)) {
+  display: none;
 }
 
 ul {
@@ -92,7 +124,7 @@ input[type="checkbox"]:checked + p {
   cursor: pointer;
   font-size: 1.5rem;
   color:#fff;
-  background-color: #ccc;
+  background-color: #ff8000;
   border-radius: 1.5rem;
 }
 
@@ -104,8 +136,8 @@ input[type="checkbox"]:checked + p {
 
 #todolist li {
   margin: 0.5rem 0;
-  background-color: #f0f0f0;
-  border: 0.125rem solid #ccc;
+  background-color: #fff;
+  border: 0.125rem solid #ff8000;
   border-radius: 1.5rem;
   cursor: move;
   transition: all 0.3s ease;
@@ -114,6 +146,7 @@ input[type="checkbox"]:checked + p {
 
 #todolist li.dragging {
   opacity: 0.5;
+  background-color: #ccc;
   transform: scale(0.875);
 }
 
@@ -123,82 +156,15 @@ input[type="checkbox"]:checked + p {
   padding: 10px;
   list-style-type: none;
   position: relative;
-  border: 1px solid #ccc;
+  border: 2px solid #ff8000;
   border-top: none;
 }
-
 
 .moving {
   transition: transform 0.25s ease;
 }
 
-
-.counter{
-  border: 1px dashed #ccc;
-  margin: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-/*input[type="radio"] {display: none;}*/
-
-.counter li {
-  padding: 5px;
-}
-
 li:has(input[type="radio"]:checked) {
   border: 2px solid blue;
   border-radius: 24px;
-}
-
-
-.tab-container {
-  max-width: 800px;
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
-}
-
-.tab-input {
-  display: none;
-}
-
-.tabs {
-  display: flex;
-  border-bottom: 1px solid #ccc;
-}
-
-.tab-label {
-  padding: 10px 20px;
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-bottom: none;
-  margin-right: 5px;
-  cursor: pointer;
-  border-radius: 5px 5px 0 0;
-  transition: background-color 0.3s;
-}
-
-.tab-label:hover {
-  background-color: #ddd;
-}
-
-.tab-content {
-
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-
-#tab1:checked ~ .tabs label[for="tab1"],
-#tab2:checked ~ .tabs label[for="tab2"],
-#tab3:checked ~ .tabs label[for="tab3"] {
-  background-color: white;
-  border-bottom: 1px solid white;
-  margin-bottom: -1px;
-}
-
-#tab1:checked  ~#todolist .content-item:has(input:checked),
-#tab2:checked  ~#todolist .content-item:has(input:not(:checked)) {
-  display: none;
 }

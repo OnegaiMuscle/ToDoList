@@ -2,9 +2,9 @@ import dom from "./domWrapper.js";
 
 export default function taskCounter(containerId) {
   const ul = dom.$(containerId);
-  const tasks = dom.$('label[for="tab3"]');
-  const taskDone = dom.$('label[for="tab2"]');
-  const todo = dom.$('label[for="tab1"]')
+  const tasks = dom.$('label[for="tab1"]');
+  const taskDone = dom.$('label[for="tab3"]');
+  const todo = dom.$('label[for="tab2"]')
 
   const observer = new MutationObserver(updateTaskCount);
   observer.observe(ul, { childList: true, subtree: true,attributes: true,
