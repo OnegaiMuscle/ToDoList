@@ -3,23 +3,26 @@ import localSW from "./localStorageWrapper.js";
 
 const ul = dom.$('#todolist');
 const template = dom.$('#todotask');
+const tasks = dom.$('label[for="tab1"]');
+const todo = dom.$('label[for="tab2"]')
+const tasksDone = dom.$('label[for="tab3"]');
 
 function display(obj) {
   const clone = template.content.cloneNode(true);
   const li = clone.querySelector('li');
-  li.children[0].checked = obj.done;
+  const checkbox = clone.querySelector('input');
+  checkbox.checked = obj.done;
   li.children[1].textContent = obj.text;
   li.dataset.id = obj.createdAt;
-  ul.appendChild(clone)
+  ul.appendChild(clone);
+  updateTaskCount();
 };
 
 function loadTasks() {
   const ids = localSW.getItem('Ids') || [];
   ids.forEach( id => {
     const task = localSW.getItem(id);
-    if (task) {
-      display(task);
-    };
+    if (task) display(task);
   });
 };
 
@@ -44,29 +47,41 @@ function addTask(e) {
 };
 
 function handleClick(e) {
-  const userAction = e.target.dataset.action;
-  if (userAction) {
+  e.preventDefault();
+  const actionType = e.target.dataset.action;
+  if (actionType) {
     const li = e.target.parentElement;
+    const checkbox = e.target.children[0];
     const taskId = li.dataset.id;
-    const tasks = {
+    const taskActions = {
       check: () => {
         const task = localSW.getItem(taskId);
-        task.done = e.target.checked;
+        checkbox.checked = !checkbox.checked;
+        task.done = checkbox.checked;
         localSW.setItem(taskId, task);
-        e.target.classList.toggle("done")
       },
 
       delete: () => {
-        let ids = localSW.getItem('Ids');
-        const id = ids.indexOf(taskId);
-        ids.splice(id ,1);
+        li.remove();
+        const lis = ul.querySelectorAll('li');
+        let ids = Array.from(lis).map(li => li.dataset.id);
         localSW.setItem('Ids', ids);
         localSW.removeItem(taskId);
-        li.remove();
       },
     };
 
-    tasks[userAction]();
+    taskActions[actionType]();
+    updateTaskCount()
   };
 };
+
+function updateTaskCount() {
+  const totalCount = ul.children.length;
+  const todoCount = ul.querySelectorAll('input:not(:checked)').length;
+  const completedCount = ul.querySelectorAll('input:checked').length;
+  tasks.textContent = `All: ${totalCount}`;
+  tasksDone.textContent = `Done: ${completedCount}`;
+  todo.textContent = `To-Do: ${todoCount}`;
+};
+
 export { loadTasks, addTask, handleClick }
