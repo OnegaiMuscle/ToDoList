@@ -65,7 +65,7 @@ function handleClick(e) {
         li.remove();
         const lis = ul.querySelectorAll('li');
         let ids = Array.from(lis).map(li => li.dataset.id);
-        localSW.setItem('Ids', ids);
+        ids.length ? localSW.setItem('Ids', ids) : localStorage.clear();
         localSW.removeItem(taskId);
       },
     };
@@ -84,4 +84,9 @@ function updateTaskCount() {
   todo.textContent = `To-Do: ${todoCount}`;
 };
 
-export { loadTasks, addTask, handleClick }
+function refreshTasks() {
+  ul.innerHTML = '';
+  loadTasks();
+};
+
+export { loadTasks, addTask, handleClick, refreshTasks }

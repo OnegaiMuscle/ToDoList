@@ -1,5 +1,5 @@
 import dom from "./modules/domWrapper.js";
-import { loadTasks, addTask, handleClick } from './modules/taskHelper.js';
+import { loadTasks, addTask, handleClick, refreshTasks } from './modules/taskHelper.js';
 import { handlePointerDown, handlePointerMove, handlePointerUp } from './modules/taskSorter.js';
 
 //if ('serviceWorker' in navigator) {
@@ -7,6 +7,7 @@ import { handlePointerDown, handlePointerMove, handlePointerUp } from './modules
 //};
 
 dom.on(document, 'DOMContentLoaded', loadTasks);
+dom.on(window, 'storage', refreshTasks);
 dom.on$('#taskForm', 'submit', addTask);
 dom.on$('#todolist', 'click', handleClick);
 dom.on$('#todolist', 'pointerdown', handlePointerDown);

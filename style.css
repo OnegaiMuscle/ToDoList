@@ -32,6 +32,7 @@ form input {
   outline: none;
   border: none;
   border-radius: 16px;
+  font-size: 16px;
   line-height: 1.25;
 }
 
@@ -117,7 +118,13 @@ input[type="submit"] {
   height: 28px;
   margin: 2px;
   border-radius: 14px;
+  font-size: 24px;
+  color: #fff;
+  overflow: hidden;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -126,12 +133,12 @@ input[type="submit"] {
   background-color: #007fff;
 }
 
-.checkbox-label:has(input:checked) ~ p {
+.checkbox-label:has(input:checked) ~ .task-content {
   text-decoration: line-through;
   text-decoration-thickness: 4px;
 }
 
-li p {
+.task-content {
   margin-inline: 8px;
   white-space: nowrap;
   overflow: hidden;
